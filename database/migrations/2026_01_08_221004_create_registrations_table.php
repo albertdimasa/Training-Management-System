@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('schedule_id')->constrained('training_schedules')->onDelete('cascade');
             $table->string('user_name');
             $table->string('user_phone');
-            $table->enum('status', ['Booked', 'Paid', 'Canceled'])->default('Booked');
+            $table->enum('status', ['pending', 'booked', 'paid', 'canceled'])->default('pending');
             $table->timestamps();
         });
     }

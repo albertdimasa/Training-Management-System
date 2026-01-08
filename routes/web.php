@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\InstructorController;
 use App\Http\Controllers\Master\CourseController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Report\ReportController;
 
 /*
@@ -18,6 +19,11 @@ use App\Http\Controllers\Report\ReportController;
 |
 */
 
+// Public Routes
+Route::get('/', [PublicController::class, 'index'])->name('public.index');
+Route::get('/register/{schedule}', [PublicController::class, 'create'])->name('public.register');
+Route::post('/register/{schedule}', [PublicController::class, 'store'])->name('public.store');
+
 // Auth Routes
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');
@@ -25,13 +31,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return redirect()->route('dashboard');
-    });
+    // Route::get('/', function () {
+    //     return redirect()->route('dashboard');
+    // });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('master')->name('master.')->group(function () {
+    Route::middleware(['role:admin'])->prefix('master')->name('master.')->group(function () {
         // Instructor routes
         Route::get('/instructor', [InstructorController::class, 'index'])->name('instructor');
         Route::post('/instructor', [InstructorController::class, 'store'])->name('instructor.store');
@@ -45,5 +51,5 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/course/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
     });
 
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::get('/report', [ReportController::class, 'index'])->middleware('role:admin')->name('report');
 });

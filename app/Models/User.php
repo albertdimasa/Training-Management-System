@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -43,6 +44,22 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => \App\Enums\UserRole::class,
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === \App\Enums\UserRole::ADMIN;
+    }
+
+    public function isInstructor(): bool
+    {
+        return $this->role === \App\Enums\UserRole::INSTRUCTOR;
+    }
+
+    public function instructor()
+    {
+        return $this->hasOne(\App\Models\Master\Instructor::class);
     }
 }
