@@ -8,8 +8,8 @@ Aplikasi **Training Management System (TMS)** untuk mengelola data pelatihan, in
 | -------- | ------------------ |
 | PHP      | ^8.3               |
 | Laravel  | ^11.0              |
-| Composer | Latest             |
 | Node.js  | Latest (untuk npm) |
+| Postgres | ^18                |
 
 ### Dependencies Utama
 
