@@ -1,59 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TMS - Training Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi **Training Management System (TMS)** untuk mengelola data pelatihan, instruktor, dan course.
 
-## About Laravel
+## Requirements
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+| Software | Version            |
+| -------- | ------------------ |
+| PHP      | ^8.3               |
+| Laravel  | ^12.0              |
+| Composer | Latest             |
+| Node.js  | Latest (untuk npm) |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Dependencies Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Production:**
 
-## Learning Laravel
+-   `laravel/framework` ^12.0
+-   `laravel/tinker` ^2.10.1
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**Development:**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   `fakerphp/faker` ^1.23
+-   `laravel/pail` ^1.2.2
+-   `laravel/pint` ^1.24
+-   `laravel/sail` ^1.41
+-   `phpunit/phpunit` ^11.5.3
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Cara Setup & Run
 
-### Premium Partners
+### 1. Clone Repository
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+git clone <repository-url>
+cd tms
+```
 
-## Contributing
+### 2. Install Dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer install
+npm install
+```
 
-## Code of Conduct
+### 3. Konfigurasi Environment
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+### 4. Setup Database
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Edit file `.env` untuk konfigurasi database:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=tms
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Jalankan migrasi dan seeder:
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+### 5. Jalankan Aplikasi
+
+```bash
+php artisan serve
+```
+
+Akses aplikasi di: `http://localhost:8000`
+
+---
+
+## Struktur Folder Penting
+
+```
+tms/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/       # Controller untuk handle logic request
+│   └── Models/                # Model Eloquent untuk database
+│
+├── database/
+│   ├── migrations/            # File migrasi struktur database
+│   └── seeders/               # Data dummy untuk development
+│
+├── public/
+│   └── assets/                # Asset statis (CSS, JS, images)
+│       ├── css/               # Stylesheet (Admiro template)
+│       ├── js/                # JavaScript files
+│       └── images/            # Gambar dan icon
+│
+├── resources/
+│   └── views/                 # Blade templates
+│       ├── layouts/           # Layout utama (default.blade.php)
+│       ├── partials/          # Komponen partial (sidebar, footer)
+│       ├── master/            # Halaman master data
+│       │   ├── instructor/    # CRUD Instruktor
+│       │   └── course/        # CRUD Course
+│       └── template/          # Template referensi (Admiro)
+│
+├── routes/
+│   └── web.php                # Definisi routing aplikasi
+│
+└── .env                       # Konfigurasi environment
+```
+
+---
+
+## Pendekatan & Arsitektur
+
+### 1. MVC Pattern
+
+Aplikasi menggunakan pola **Model-View-Controller** standar Laravel:
+
+-   **Model**: Eloquent ORM untuk interaksi database
+-   **View**: Blade templating engine
+-   **Controller**: Handle request dan business logic
+
+### 2. Template Admin
+
+Menggunakan **Admiro Admin Template** (Bootstrap 5) untuk UI yang modern dan responsif.
+
+### 3. Fitur Utama
+
+-   **Dashboard**: Tampilan ringkasan data
+-   **Master Instruktor**: CRUD data instruktor
+-   **Master Course**: CRUD data course
+-   **Laporan**: Halaman laporan (placeholder)
+
+### 4. UI Components
+
+-   **Modal Dialog**: Centered modal untuk create/edit dengan styling Admiro
+-   **SweetAlert2**: Popup konfirmasi delete yang interaktif
+-   **DataTables**: Tabel data responsif
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
