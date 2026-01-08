@@ -7,7 +7,7 @@ Aplikasi **Training Management System (TMS)** untuk mengelola data pelatihan, in
 | Software | Version            |
 | -------- | ------------------ |
 | PHP      | ^8.3               |
-| Laravel  | ^12.0              |
+| Laravel  | ^11.0              |
 | Composer | Latest             |
 | Node.js  | Latest (untuk npm) |
 
@@ -15,7 +15,7 @@ Aplikasi **Training Management System (TMS)** untuk mengelola data pelatihan, in
 
 **Production:**
 
--   `laravel/framework` ^12.0
+-   `laravel/framework` ^11.0
 -   `laravel/tinker` ^2.10.1
 
 **Development:**
@@ -56,11 +56,11 @@ php artisan key:generate
 Edit file `.env` untuk konfigurasi database:
 
 ```env
-DB_CONNECTION=mysql
+DB_CONNECTION=pqsql
 DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=tms
-DB_USERNAME=root
+DB_PORT=5432
+DB_DATABASE=tms_db
+DB_USERNAME=postgres
 DB_PASSWORD=
 ```
 
@@ -79,6 +79,14 @@ php artisan serve
 
 Akses aplikasi di: `http://localhost:8000`
 
+### 6. Login
+
+| Field    | Value           |
+| -------- | --------------- |
+| Email    | admin@test.com  |
+| Password | password        |
+
+
 ---
 
 ## Struktur Folder Penting
@@ -88,7 +96,11 @@ tms/
 ├── app/
 │   ├── Http/
 │   │   └── Controllers/       # Controller untuk handle logic request
+│   │       └── Master/        # Controller untuk handle master data
+│   │       └── Report/        # Controller untuk handle report data
 │   └── Models/                # Model Eloquent untuk database
+│       └── Master/            # Model untuk master data
+│       └── Report/            # Model untuk report data
 │
 ├── database/
 │   ├── migrations/            # File migrasi struktur database
@@ -111,8 +123,6 @@ tms/
 │
 ├── routes/
 │   └── web.php                # Definisi routing aplikasi
-│
-└── .env                       # Konfigurasi environment
 ```
 
 ---
@@ -131,21 +141,19 @@ Aplikasi menggunakan pola **Model-View-Controller** standar Laravel:
 
 Menggunakan **Admiro Admin Template** (Bootstrap 5) untuk UI yang modern dan responsif.
 
-### 3. Fitur Utama
+### 3. Fitur Utama yang sudah bisa digunakan
 
--   **Dashboard**: Tampilan ringkasan data
+-   **Autentikasi**: Login aplikasi
 -   **Master Instruktor**: CRUD data instruktor
 -   **Master Course**: CRUD data course
--   **Laporan**: Halaman laporan (placeholder)
 
-### 4. UI Components
+### 4. Fitur yang akan diimplementasikan
 
--   **Modal Dialog**: Centered modal untuk create/edit dengan styling Admiro
--   **SweetAlert2**: Popup konfirmasi delete yang interaktif
--   **DataTables**: Tabel data responsif
+-   **Dashboard**: Realtime ringkasan data
+-   **Laporan**: Laporan data (Export Excel & PDF)
 
 ---
 
-## License
+<!-- ## License
 
-Open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->

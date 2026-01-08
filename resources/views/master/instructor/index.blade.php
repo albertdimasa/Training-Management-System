@@ -118,7 +118,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="{{ route('master.instructor.store') }}" method="POST">
+                <form action="{{ route('master.instructor.store') }}" method="POST" class="w-100">
                     @csrf
                     <div class="modal-header">
                         <h3 class="modal-title fs-5" id="addInstructorModalLabel">Tambah Instruktor Baru</h3>
