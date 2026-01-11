@@ -97,8 +97,6 @@
     <!-- scrollbar-->
     <script src="{{ asset('assets/js/scrollbar/simplebar.js') }}"></script>
     <script src="{{ asset('assets/js/scrollbar/custom.js') }}"></script>
-    <!-- theme_customizer-->
-    <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
     <!-- prism-->
     <script src="{{ asset('assets/js/prism/prism.min.js') }}"></script>
     <!-- clipboard-->

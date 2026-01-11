@@ -1,6 +1,6 @@
 <header class="page-header row">
     <div class="logo-wrapper d-flex align-items-center col-auto">
-        <a href="index.html">
+        <a href="{{ route('dashboard') }}">
             <img class="light-logo img-fluid" src="{{ asset('assets/images/logo/logo1.png') }}" alt="logo">
             <img class="dark-logo img-fluid" src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
         </a>
@@ -29,7 +29,7 @@
                         </svg>
                     </a>
                 </li>
-                <li class="custom-dropdown">
+                {{-- <li class="custom-dropdown">
                     <a href="javascript:void(0)">
                         <svg>
                             <use href="{{ asset('assets/svg/iconly-sprite.svg') }}#notification"></use>
@@ -104,7 +104,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <li class="profile-nav custom-dropdown">
                     <div class="user-wrap">
                         <div class="user-content">

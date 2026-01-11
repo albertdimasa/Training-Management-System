@@ -7,33 +7,18 @@
 @endsection
 
 @section('content')
+    {{-- KPI Summary Cards Row 1 --}}
     <div class="row">
-        <!-- Summary Cards -->
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="text-white mb-1">12</h4>
-                            <p class="text-white mb-0">Total Instruktor</p>
+                            <h4 class="text-white mb-1">Rp {{ number_format($totalRevenue / 1000000, 1) }}M</h4>
+                            <p class="text-white mb-0">Total Revenue (Paid)</p>
                         </div>
                         <div class="align-self-center">
-                            <i class="fa-solid fa-chalkboard-teacher fa-2x text-white opacity-50"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 class="text-white mb-1">25</h4>
-                            <p class="text-white mb-0">Total Course</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="fa-solid fa-book fa-2x text-white opacity-50"></i>
+                            <i class="fa-solid fa-money-bill-wave fa-2x text-white opacity-50"></i>
                         </div>
                     </div>
                 </div>
@@ -44,26 +29,41 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="text-white mb-1">150</h4>
-                            <p class="text-white mb-0">Peserta Aktif</p>
+                            <h4 class="text-white mb-1">Rp {{ number_format($pendingRevenue / 1000000, 1) }}M</h4>
+                            <p class="text-white mb-0">Pending Revenue</p>
                         </div>
                         <div class="align-self-center">
-                            <i class="fa-solid fa-users fa-2x text-white opacity-50"></i>
+                            <i class="fa-solid fa-clock fa-2x text-white opacity-50"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
-            <div class="card bg-info">
+            <div class="card bg-danger">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="text-white mb-1">8</h4>
-                            <p class="text-white mb-0">Training Bulan Ini</p>
+                            <h4 class="text-white mb-1">{{ $invoiceOutstanding }}</h4>
+                            <p class="text-white mb-0">Invoice Outstanding</p>
                         </div>
                         <div class="align-self-center">
-                            <i class="fa-solid fa-calendar fa-2x text-white opacity-50"></i>
+                            <i class="fa-solid fa-file-invoice fa-2x text-white opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="text-white mb-1">{{ $totalBatches }}</h4>
+                            <p class="text-white mb-0">Total Training Batch</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fa-solid fa-layer-group fa-2x text-white opacity-50"></i>
                         </div>
                     </div>
                 </div>
@@ -71,8 +71,200 @@
         </div>
     </div>
 
+    {{-- KPI Summary Cards Row 2 --}}
     <div class="row">
-        <!-- Training Terbaru -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="text-info mb-1">{{ $totalClients }}</h4>
+                            <p class="text-muted mb-0">Active Clients</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fa-solid fa-building fa-2x text-info opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="text-primary mb-1">{{ $totalParticipants }}</h4>
+                            <p class="text-muted mb-0">Total Participants</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fa-solid fa-users fa-2x text-primary opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="text-success mb-1">{{ $totalInstructors }}</h4>
+                            <p class="text-muted mb-0">Active Instructors</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fa-solid fa-chalkboard-teacher fa-2x text-success opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="text-warning mb-1">{{ $trainingThisMonth }}</h4>
+                            <p class="text-muted mb-0">Training Bulan Ini</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fa-solid fa-calendar fa-2x text-warning opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Charts Row --}}
+    <div class="row">
+        {{-- Monthly Revenue Chart --}}
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h3>Trend Revenue (6 Bulan Terakhir)</h3>
+                </div>
+                <div class="card-body">
+                    <div id="revenueChart" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        {{-- Revenue by Category Chart --}}
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h3>Revenue by Category</h3>
+                </div>
+                <div class="card-body">
+                    <div id="categoryChart" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Ranking Tables Row --}}
+    <div class="row">
+        {{-- Top Clients by Revenue --}}
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h3><i class="fa-solid fa-trophy text-warning me-2"></i>Top 5 Client by Revenue</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Client</th>
+                                    <th>Industry</th>
+                                    <th class="text-end">Total Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($topClientsByRevenue as $client)
+                                    <tr>
+                                        <td>
+                                            @if ($loop->iteration == 1)
+                                                <span class="badge bg-warning">1</span>
+                                            @elseif ($loop->iteration == 2)
+                                                <span class="badge bg-secondary">2</span>
+                                            @elseif ($loop->iteration == 3)
+                                                <span class="badge bg-danger">3</span>
+                                            @else
+                                                {{ $loop->iteration }}
+                                            @endif
+                                        </td>
+                                        <td><strong>{{ $client->client_name }}</strong></td>
+                                        <td><span class="badge badge-light-info">{{ $client->industry ?? '-' }}</span></td>
+                                        <td class="text-end text-success fw-bold">Rp
+                                            {{ number_format($client->total_revenue, 0, ',', '.') }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">Belum ada data</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Top Courses by Enrollment --}}
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h3><i class="fa-solid fa-book text-primary me-2"></i>Top 5 Course by Enrollment</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Course</th>
+                                    <th>Category</th>
+                                    <th class="text-end">Enrollments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($topCoursesByEnrollment as $course)
+                                    <tr>
+                                        <td>
+                                            @if ($loop->iteration == 1)
+                                                <span class="badge bg-warning">1</span>
+                                            @elseif ($loop->iteration == 2)
+                                                <span class="badge bg-secondary">2</span>
+                                            @elseif ($loop->iteration == 3)
+                                                <span class="badge bg-danger">3</span>
+                                            @else
+                                                {{ $loop->iteration }}
+                                            @endif
+                                        </td>
+                                        <td><strong>{{ $course->course_title }}</strong></td>
+                                        <td><span class="badge badge-light-primary">{{ $course->category ?? '-' }}</span>
+                                        </td>
+                                        <td class="text-end"><span
+                                                class="badge bg-primary">{{ $course->enrollment_count }} peserta</span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">Belum ada data</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Recent Training & Top Instructors Row --}}
+    <div class="row">
+        {{-- Training Terbaru --}}
         <div class="col-xl-8">
             <div class="card">
                 <div class="card-header pb-0">
@@ -83,263 +275,168 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
+                                    <th>Batch</th>
                                     <th>Course</th>
-                                    <th>Instruktor</th>
+                                    <th>Instruktur</th>
                                     <th>Tanggal</th>
                                     <th>Peserta</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Dasar Pemrograman Web</td>
-                                    <td>John Doe</td>
-                                    <td>08 Jan 2026</td>
-                                    <td>15</td>
-                                    <td><span class="badge bg-success">Berlangsung</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Flutter Mobile Development</td>
-                                    <td>Jane Smith</td>
-                                    <td>10 Jan 2026</td>
-                                    <td>12</td>
-                                    <td><span class="badge bg-primary">Terjadwal</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Machine Learning Fundamentals</td>
-                                    <td>Ahmad Fauzi</td>
-                                    <td>15 Jan 2026</td>
-                                    <td>20</td>
-                                    <td><span class="badge bg-primary">Terjadwal</span></td>
-                                </tr>
-                                <tr>
-                                    <td>UI/UX Design Principles</td>
-                                    <td>Sarah Wilson</td>
-                                    <td>05 Jan 2026</td>
-                                    <td>18</td>
-                                    <td><span class="badge bg-secondary">Selesai</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Database Management</td>
-                                    <td>John Doe</td>
-                                    <td>03 Jan 2026</td>
-                                    <td>10</td>
-                                    <td><span class="badge bg-secondary">Selesai</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                @forelse ($recentBatches as $batch)
+                                    <tr>
+                                        <td><code>{{ $batch->batch_code }}</code></td>
+                                        <td>{{ $batch->course->course_title ?? '-' }}</td>
+                                        <td>{{ $batch->instructor->trainer_name ?? '-' }}</td>
+                                        <td>{{ $batch->start_date->format('d M Y') }}</td>
+                                        <td>{{ $batch->enrollments_count }}</td>
+                                        <td>
+                                            @switch($batch->status?->value)
+                                                @case('PLANNED')
+                                                    <span class="badge bg-secondary">Planned</span>
+                                                @break
 
-        <!-- Instruktor Terbaik -->
-        <div class="col-xl-4">
-            <div class="card">
-                <div class="card-header pb-0">
-                    <h3>Top Instruktor</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3" src="{{ asset('assets/images/profile.png') }}"
-                                    alt="user" width="40">
-                                <div>
-                                    <h6 class="mb-0">John Doe</h6>
-                                    <small class="text-muted">Web Development</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">45 Training</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3" src="{{ asset('assets/images/profile.png') }}"
-                                    alt="user" width="40">
-                                <div>
-                                    <h6 class="mb-0">Jane Smith</h6>
-                                    <small class="text-muted">Mobile Development</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">38 Training</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3" src="{{ asset('assets/images/profile.png') }}"
-                                    alt="user" width="40">
-                                <div>
-                                    <h6 class="mb-0">Ahmad Fauzi</h6>
-                                    <small class="text-muted">Data Science</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">32 Training</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-3" src="{{ asset('assets/images/profile.png') }}"
-                                    alt="user" width="40">
-                                <div>
-                                    <h6 class="mb-0">Sarah Wilson</h6>
-                                    <small class="text-muted">UI/UX Design</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">28 Training</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                @case('OPEN')
+                                                    <span class="badge bg-primary">Open</span>
+                                                @break
 
-    <div class="row">
-        <!-- Course Populer Chart -->
-        <div class="col-xl-6">
-            <div class="card">
-                <div class="card-header card-no-border pb-0">
-                    <div class="header-top">
-                        <h3>Course Populer</h3>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" id="courseDropdown" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                2026
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="courseDropdown">
-                                <a class="dropdown-item" href="#">2025</a>
-                                <a class="dropdown-item" href="#">2026</a>
-                            </div>
+                                                @case('ONGOING')
+                                                    <span class="badge bg-success">Berlangsung</span>
+                                                @break
+
+                                                @case('COMPLETED')
+                                                    <span class="badge bg-info">Selesai</span>
+                                                @break
+
+                                                @case('CANCELLED')
+                                                    <span class="badge bg-danger">Batal</span>
+                                                @break
+                                            @endswitch
+                                        </td>
+                                    </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Belum ada training</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="card-body pt-0">
-                    <div id="coursePopularChart"></div>
+            </div>
+
+            {{-- Top Instruktor --}}
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h3><i class="fa-solid fa-star text-warning me-2"></i>Top Instruktur</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            @forelse ($topInstructors as $instructor)
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar avatar-sm me-3">
+                                            <span class="avatar-title rounded-circle bg-primary px-2">
+                                                {{ strtoupper(substr($instructor->trainer_name, 0, 1)) }}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">{{ $instructor->trainer_name }}</h6>
+                                            <small class="text-muted">{{ $instructor->specialization }}</small>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">{{ $instructor->batches_count }} Batch</span>
+                                </li>
+                            @empty
+                                <li class="list-group-item text-center">Belum ada instruktur</li>
+                            @endforelse
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    @endsection
 
-        <!-- Aktivitas Terbaru -->
-        <div class="col-xl-6">
-            <div class="card">
-                <div class="card-header card-no-border pb-0">
-                    <h3>Aktivitas Terbaru</h3>
-                </div>
-                <div class="card-body pt-2">
-                    <ul class="notification">
-                        <li class="d-flex">
-                            <div class="activity-dot-primary"></div>
-                            <div class="w-100 ms-3">
-                                <p class="d-flex justify-content-between mb-2">
-                                    <span class="date-content bg-light-primary">08 Jan 2026</span>
-                                    <span>Hari ini</span>
-                                </p>
-                                <h6 class="f-w-600">Peserta baru mendaftar<span class="dot-notification"></span></h6>
-                                <p class="f-m-light mb-0">Budi Santoso mendaftar course "Dasar Pemrograman Web"</p>
-                            </div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="activity-dot-success"></div>
-                            <div class="w-100 ms-3">
-                                <p class="d-flex justify-content-between mb-2">
-                                    <span class="date-content bg-light-success">08 Jan 2026</span>
-                                    <span>5 jam lalu</span>
-                                </p>
-                                <h6 class="f-w-600">Training selesai<span class="dot-notification"></span></h6>
-                                <p class="f-m-light mb-0">Training "UI/UX Design Principles" telah selesai</p>
-                            </div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="activity-dot-warning"></div>
-                            <div class="w-100 ms-3">
-                                <p class="d-flex justify-content-between mb-2">
-                                    <span class="date-content bg-light-warning">07 Jan 2026</span>
-                                    <span>1 hari lalu</span>
-                                </p>
-                                <h6 class="f-w-600">Course baru ditambahkan<span class="dot-notification"></span></h6>
-                                <p class="f-m-light mb-0">Admin menambahkan course "DevOps Fundamentals"</p>
-                            </div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="activity-dot-secondary"></div>
-                            <div class="w-100 ms-3">
-                                <p class="d-flex justify-content-between mb-2">
-                                    <span class="date-content bg-light-secondary">06 Jan 2026</span>
-                                    <span>2 hari lalu</span>
-                                </p>
-                                <h6 class="f-w-600">Instruktor baru bergabung<span class="dot-notification"></span></h6>
-                                <p class="f-m-light mb-0">Maria Garcia bergabung sebagai instruktor</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-
-@push('scripts')
-    <script src="{{ asset('assets/js/chart/apex-chart/apex-chart.js') }}"></script>
-    <script>
-        // Course Populer Chart
-        var options = {
-            series: [{
-                data: [120, 95, 88, 72]
-            }],
-            chart: {
-                type: 'bar',
-                height: 350,
-                toolbar: {
-                    show: false
-                }
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    horizontal: true,
-                    distributed: true,
-                    barHeight: '85%',
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                textAnchor: 'start',
-                style: {
-                    colors: ['#fff']
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>
+            // Revenue Trend Chart (Bar)
+            var revenueData = @json($monthlyRevenue);
+            var revenueOptions = {
+                series: [{
+                    name: 'Revenue',
+                    data: revenueData.map(item => item.value)
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 300,
+                    toolbar: {
+                        show: false
+                    }
                 },
-                formatter: function(val, opt) {
-                    return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+                plotOptions: {
+                    bar: {
+                        borderRadius: 8,
+                        columnWidth: '50%',
+                    }
                 },
-                offsetX: 0,
-            },
-            colors: ['#7366ff', '#51bb25', '#f73164', '#f8d62b'],
-            xaxis: {
-                categories: ['Web Development', 'Mobile Dev', 'Data Science', 'UI/UX Design'],
-            },
-            yaxis: {
-                labels: {
-                    show: false
-                }
-            },
-            grid: {
-                show: false,
-            },
-            legend: {
-                show: false
-            },
-            tooltip: {
-                theme: 'dark',
-                x: {
-                    show: false
+                dataLabels: {
+                    enabled: false
                 },
-                y: {
-                    title: {
-                        formatter: function() {
-                            return ''
+                xaxis: {
+                    categories: revenueData.map(item => item.label),
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function(val) {
+                            return 'Rp ' + (val / 1000000).toFixed(1) + 'M';
+                        }
+                    }
+                },
+                colors: ['#5C61F2'],
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return 'Rp ' + val.toLocaleString('id-ID');
                         }
                     }
                 }
-            }
-        };
+            };
+            var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), revenueOptions);
+            revenueChart.render();
 
-        var chart = new ApexCharts(document.querySelector("#coursePopularChart"), options);
-        chart.render();
-    </script>
-@endpush
+            // Category Pie Chart
+            var categoryData = @json($revenueByCategory);
+            var categoryOptions = {
+                series: categoryData.map(item => parseFloat(item.total_revenue)),
+                chart: {
+                    type: 'donut',
+                    height: 300
+                },
+                labels: categoryData.map(item => item.category || 'Uncategorized'),
+                colors: ['#5C61F2', '#F99B0D', '#51BB25', '#DC3545', '#17A2B8', '#6C757D'],
+                legend: {
+                    position: 'bottom'
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '60%'
+                        }
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return 'Rp ' + val.toLocaleString('id-ID');
+                        }
+                    }
+                }
+            };
+            var categoryChart = new ApexCharts(document.querySelector("#categoryChart"), categoryOptions);
+            categoryChart.render();
+        </script>
+    @endpush

@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('instructors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('specialization')->nullable();
+            $table->string('trainer_code')->unique();
+            $table->string('trainer_name');
+            $table->string('specialization');
+            $table->enum('level', ['JUNIOR', 'MID', 'SENIOR', 'EXPERT']);
+            $table->decimal('daily_rate', 14, 2)->default(0);
+            $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('ACTIVE');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }

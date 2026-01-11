@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
+            $table->string('course_code')->unique();
+            $table->string('course_title');
+            $table->string('category'); // SAFETY / TECHNICAL / MANAGEMENT / COMPLIANCE
+            $table->string('certificator'); // INTERNAL / GOV / VENDOR
+            $table->unsignedTinyInteger('duration_days')->default(1);
+            $table->decimal('base_price', 14, 2)->default(0);
+            $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('ACTIVE');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
     <meta name="keywords"
         content="admin template, Admiro admin template, best javascript admin, dashboard template, bootstrap admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <title>Login - TMS Admiro</title>
+    <title>Login - {{ config('app.name') }}</title>
     <!-- Favicon icon-->
     <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -51,24 +51,24 @@
                 <div class="login-card login-dark">
                     <div>
                         <div>
-                            <a class="logo" href="{{ url('/') }}">
+                            {{-- <a class="logo" href="{{ url('/') }}">
                                 <img class="img-fluid for-light m-auto"
                                     src="{{ asset('assets/images/logo/logo1.png') }}" alt="looginpage">
                                 <img class="img-fluid for-dark" src="{{ asset('assets/images/logo/logo-dark.png') }}"
                                     alt="logo">
-                            </a>
+                            </a> --}}
                         </div>
-                        <div class="login-main">
+                        <div class="login-main" style="border: solid 1px black;">
                             <form class="theme-form" action="{{ route('login.authenticate') }}" method="POST">
                                 @csrf
-                                <h2 class="text-center">Sign in to account</h2>
-                                <p class="text-center">Enter your email &amp; password to login</p>
+                                <h2 class="text-center">Training Management System</h2>
+                                <p class="text-center">Make Your Employees Great!</p>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Email Address</label>
                                     <input class="form-control @error('email') is-invalid @enderror" type="email"
                                         name="email" required="" placeholder="Test@gmail.com"
-                                        value="{{ old('email') }}">
+                                        value="admin@tms.com">
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -77,23 +77,22 @@
                                     <label class="col-form-label">Password</label>
                                     <div class="form-input position-relative">
                                         <input class="form-control" type="password" name="password" required=""
-                                            placeholder="*********">
+                                            placeholder="*********" value="password">
                                         <div class="show-hide"><span class="show"></span></div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-0 checkbox-checked">
-                                    <div class="form-check checkbox-solid-info">
+                                    {{-- <div class="form-check checkbox-solid-info">
                                         <input class="form-check-input" id="solid6" type="checkbox">
                                         <label class="form-check-label" for="solid6">Remember password</label>
-                                    </div>
-                                    <a class="link" href="#">Forgot password?</a>
+                                    </div> --}}
+                                    {{-- <a class="link" href="#">Forgot password?</a> --}}
                                     <div class="text-end mt-3">
                                         <button class="btn btn-primary btn-block w-100" type="submit">Sign in</button>
                                     </div>
                                 </div>
-
-                                <p class="mt-4 mb-0 text-center">Don't have account?<a class="ms-2"
-                                        href="#">Create Account</a></p>
+                                {{-- <p class="mt-4 mb-0 text-center">Don't have account?<a class="ms-2"
+                                        href="#">Create Account</a></p> --}}
                             </form>
                         </div>
                     </div>
